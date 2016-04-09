@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+	<script type="text/javascript" src="dew://lib/dew.js"></script>
+    <script type="text/javascript" src="dew://lib/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="dew://lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="friends.js"></script>
+    <script type="text/javascript" src="friendServer.js"></script>
+    <link rel="stylesheet" href="friends.css">
+</head>
+
+<div id="window">
+    <div id="friendlist"></div>
+    <div id="party"></div>
+    <div id="search">
+        <label for="searchbox">Search</label><input id="searchbox">
+        <div id="activePlayers">
+        </div>
+    </div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#search">Search</a></li>
+            <li><a href="#party">Party</a></li>
+            <li><a href="#friendlist">Friends</a></li>
+            <li><a onclick="windowHide();"><b>X</b></a></li>
+        </ul>
+    </div>
+</div>
+
+</html>

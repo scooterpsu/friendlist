@@ -1,0 +1,206 @@
+@font-face{font-family:"Conduit ITC";src:url(Conduit-ITC.woff);}
+
+body {
+    font-family: "Conduit ITC", sans-serif;
+    overflow: hidden;
+}
+
+#window{
+    position: absolute;
+    top: 30%;
+    right: 0;
+    width: 18vw;
+    height: 18vw;
+    border: 2px solid rgba(122,175,209, 0.8);
+    background: rgba(135,206,250, 0.25);
+    color: white;
+    padding: 0.75vw;
+    display: none;
+}
+
+#friendlist,#party,#search{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 18vw;
+    width: 18.25vw;
+    position: absolute;
+    top: 0.75vw;
+    display: none;
+}
+
+#search input{
+    font-family: "Conduit ITC", sans-serif;
+    width: 82%;
+    height: 1.25vw;
+    float: right;
+    margin-right: 0.35vw;
+    opacity: 0.8
+}
+
+#search label{
+    font-size: 1vw;
+    color: white;
+    float: left;
+    opacity: 0.8
+}
+
+#activePlayers{
+    position: absolute;
+    top: 1.75vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 16.25vw;
+    width: 18.25vw;   
+}
+
+#tabs{
+    position: relative;
+    list-style: none;
+    padding-bottom: 0;
+    transform: rotate(-90deg);
+    left: -11.85vw;
+    width: 20vw;
+    top: 6vw;
+    display: block !important;
+}
+
+#tabs ul{
+    margin:0;
+    padding:0;
+}
+
+#tabs li{
+    display: inline-block;
+    border-bottom: 0;
+    border: 2px solid rgba(122,175,209, 0.8);
+    border-bottom: 0;
+    background: rgba(135,206,250, 0.25);
+    padding: 0.15vw 0.75vw 0.42vw 0.55vw; 
+    margin-right: 0.5vw;
+    font-size: 1.05vw;
+    bottom: 0;
+    -webkit-clip-path: polygon(calc(100% - 0.7vw) 0, 100% 0.7vw, 100% 100%, 0 100%, 0 0);
+}
+
+#tabs li:hover{
+    background-color: rgba(122,175,209, 0.8);
+}
+
+#tabs li:after{
+    content: "";
+    padding: 0.18vw 0.75vw 0.42vw;
+    position: relative;
+    width: 2.5vw;
+    margin-right: -1.75vw;
+    right: 0;
+    background-color: rgba(122,175,209, 0.8);
+    -webkit-clip-path: polygon(calc(100% - 0.75vw) 0%, calc(100% - 0.15vw) 0.6vw, calc(100% - 0.15vw) 0);
+}
+
+#tabs li a{
+    text-decoration: none;
+    color: white;
+    opacity: 0.8;
+}
+
+.friend{
+    width: 15vw;
+    height: 1.05vw;
+    font-size: 1.15vw;
+    line-height: 1.15vw;
+    padding: 0.5vw;
+    padding-left: 2vw;
+    margin: 0.1vw;
+    z-index: 1;
+    float: left;
+    opacity: 0.25;
+    position: relative;
+    text-shadow:
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+         1px 1px 0 #000;
+    letter-spacing: 0.02vw;
+    cursor: default;
+}
+
+.online{
+    opacity: 0.7;
+}
+
+.leader{
+    background-image: url(images/crown.png) !important;
+    background-repeat: no-repeat;
+    background-position: 12.75vw 0.5vw;
+    background-size: 1.75vw 1.25vw;
+    display: inline;
+    content:"";
+}
+
+.friend::before{
+    background: url(images/emblem.png) no-repeat center;
+    background-size: 1.85vw 1.75vw;
+    background-position: 0.3vw 0.15vw;
+    top: 0;
+    left: 0;
+    display: inline;
+    width: 2.5vw; 
+    height: 2.75vw;
+    content:"";
+    margin-top: -0.5vw;
+    margin-left: -2vw;
+    float: left;
+}
+
+.friend::after{
+    background: rgba(0, 0, 0, 0.4) no-repeat center;
+    background-size: 1.75vw 2.25vw;
+    background-position: 0.4vw -0.25vw;
+    margin-top: -0.5vw;
+    display: inline;
+    width: 2.5vw; 
+    height: 2.05vw;
+    content:"";
+    margin-right: -0.5vw;
+    float: right;
+    padding: 0;
+}
+
+.controls{
+    position: absolute;
+    top: 0;
+    height: 1.75vw;
+    right: 0.25vw;
+}
+
+.controls div{
+    float: left;
+    margin: 0;
+    margin-right: 0.15vw;
+    margin-top: 0.1vw;
+    padding: 0.075vw 0.25vw;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(122,175,209, 0.8);
+    font-size: 1vw;
+    line-height: 1.45vw;
+    text-align: center;
+    cursor: pointer;
+}
+
+.controls div:hover{
+    background-color: rgba(122,175,209, 0.8);
+    border-color: #707070;
+}
+
+::-webkit-scrollbar {
+    width: 0.45vw;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: rgba(122,175,209, 0.8)
+}
