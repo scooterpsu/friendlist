@@ -125,7 +125,7 @@ body {
 }
 
 .online{
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
 .leader{
@@ -203,4 +203,13 @@ body {
  
 ::-webkit-scrollbar-thumb {
     background-color: rgba(122,175,209, 0.8)
+}
+
+#screen{
+    position: absolute;
+    height: 70%;
+    width: 26.5%;
+    top: 10%;
+    left: 6.75%;
+    background-color: purple;
 }
