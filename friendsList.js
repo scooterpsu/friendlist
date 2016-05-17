@@ -1,5 +1,5 @@
-var friendButton = '<div onClick="'+'addFriend(JSON.stringify({\'name\':$(this).parent().parent().attr(\'data-name\'), \'guid\' : $(this).parent().parent().attr(\'data-pid\'), \'id\' : null, \'colour\' : $(this).parent().parent().attr(\'data-color\'), \'rank\' : 0}));'+'">Friend</div>'
-var unfriendButton = '<div onClick="'+'removeFriend(JSON.stringify({\'name\':$(this).parent().parent().attr(\'data-name\'), \'guid\' : $(this).parent().parent().attr(\'data-pid\'), \'id\' : null, \'colour\' : $(this).parent().parent().attr(\'data-color\'), \'rank\' : 0}));'+
+var friendButton = '<div onClick="'+'addFriend(JSON.stringify({\'name\':$(this).parent().parent().attr(\'data-name\'), \'guid\' : $(this).parent().parent().attr(\'data-pid\'), \'id\' : null, \'colour\' : $(this).parent().parent().attr(\'data-color\'), \'rank\' : \'none\'}));'+'">Friend</div>'
+var unfriendButton = '<div onClick="'+'removeFriend(JSON.stringify({\'name\':$(this).parent().parent().attr(\'data-name\'), \'guid\' : $(this).parent().parent().attr(\'data-pid\'), \'id\' : null, \'colour\' : $(this).parent().parent().attr(\'data-color\'), \'rank\' : $(this).parent().parent().attr(\'data-rank\')}));'+
 '">Unfriend</div>'
 var partyButton = '<div onClick="'+
 'console.log(\'party:\'+$(this).parent().parent().attr(\'data-name\')+\':\'+$(this).parent().parent().attr(\'data-pid\')+\':\'+$(this).parent().parent().attr(\'data-color\'));'+
@@ -145,8 +145,8 @@ function updateFriends() {
                 addPlayer("activePlayers",{
                     name: onlinePlayers[i].name,
                     guid: onlinePlayers[i].guid,
-                    colour: hexToRgb(onlinePlayers[i].colour, 0.75),
-                    rank: 0
+                    colour: onlinePlayers[i].colour,
+                    rank: onlinePlayers[i].rank
                 }, null);                
             }
 		}
@@ -167,9 +167,9 @@ function loadParty() {
             addPlayer("party",{
                 name: party[i].name,
                 guid: party[i].guid,
-                colour: hexToRgb(party[i].colour, 0.75),
-                rank: 0
-            }, null, 0, classString);
+                colour: party[i].colour,
+                rank: party[i].rank
+            }, null, 1, classString);
 		}
 	} else {
 		$('#party').append("<div class='nofriends'>You're not partying :(</div>");
@@ -184,18 +184,28 @@ function loadFriends() {
 	if(friends.length > 0) {
 		for(var i=0; i < friends.length; i++) {
             var result = JSON.parse(friends[i]);
-            var classString = "friend online";
-            console.log(getObjects(onlinePlayers,"guid",result.guid));
-            //if($.inArray(result, onlinePlayers) > -1){
-            //    console.log("found");
-            //   classString += " online";
-            //}
+            var classString = "friend";
+            var friendSearch = getObjects(onlinePlayers,"guid",result.guid)[0];
+            if (friendSearch){
+                classString += " online";
+                if(friendSearch.name != result.name || friendSearch.colour != result.colour || friendSearch.rank != result.rank){
+                    friends.splice(i, 1);
+                    addFriend(JSON.stringify(
+                    {   'name'  : friendSearch.name,
+                        'guid'  : friendSearch.guid,
+                        'id'    : null, 
+                        'colour' : friendSearch.colour,
+                        'rank' :  friendSearch.rank
+                    }));
+                    localStorage.setItem("friends", JSON.stringify(friends));
+                }
+            }
             addPlayer("friendlist",{
                 name: result.name,
                 guid: result.guid,
                 colour: result.colour,
-                rank: 0
-            }, null, 0, classString);
+                rank: result.rank
+            }, null, 1, classString);
 		}
 	} else {
 		$('#friendlist').append("<div class='nofriends'>You've got no friends :(</div>");
@@ -206,7 +216,6 @@ function loadFriends() {
 }
 
 function addFriend(friendString){
-    console.log(friendString);
     friends.push(friendString);
     loadFriends();
     localStorage.setItem("friends", JSON.stringify(friends));
@@ -238,14 +247,18 @@ function addPlayer(id, player, isDev, opacity, classString) {
     if(!classString){
         classString = "friend online";
     }
+    if(!opacity){
+        opacity = 1;
+    }
 	$('<div>', {
         css: {
-            backgroundColor: player.colour
+            backgroundColor: hexToRgb(player.colour, opacity)
         },
         class: classString,
         'data-color': player.colour,
         'data-pid': player.guid,
         'data-name': player.name,
+        'data-rank': player.rank,
         text: player.name
 	}).appendTo('#'+id);
 }
